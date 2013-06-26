@@ -62,7 +62,8 @@ fs.mkdir('/tmp', function(err){
 
 ## Tests
 
-Currently the test is an example with some logging.
+Currently the "test" is an incomplete example with some logging to the console. 
+Real test forthcoming.
 It can be run like so:
 
 First install browserify and opa
