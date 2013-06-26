@@ -20,7 +20,7 @@ __Nota Bene__ uses [through](https://github.com/dominictarr/through) to expose r
 There is also a helper method for the File System API.
 * setStorage(type, size) 
 
-Calling this method with reinit he fs for you in private. The defaults are 
+Call this method before any others if you don't want these defaults:
 ```js
 type = window.PERMANENT // otherwise window.TEMPORARY
 size = 1024 * 1024 * 1024 // in bytes
