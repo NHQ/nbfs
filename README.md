@@ -30,11 +30,34 @@ size = 1024 * 1024 * 1024 // in bytes
 ```
 npm install nota-bene
 ```
-Then use it as you would the FS module
+Then use it as you would the FS module, from the example in /test.js
 ```js
-var fs = require('nota-bene')
-fs.createWriteStream('/tmp/audio.raw')
-fs.write(data)
+var fs = require('./nota-bene');
+
+var buf = new Float32Array(1024 * 1024);
+for(var x = 0; x < buf.length; x++){
+	buf[x] = Math.sin((x / 1024 * 1024) * Math.PI * 2)
+}
+fs.mkdir('/tmp', function(err){
+	if(err) console.log(err)
+	else{
+		fs.writeFile('/tmp/pipeTest', buf, function(err){
+			if(err) console.log(err)
+			var ws = fs.createWriteStream('/tmp/pip')
+			var rs = fs.createReadStream('/tmp/pipeTest')
+			rs.pipe(ws)
+			ws.on('data', function(data){
+				console.log(data)
+			})
+			setTimeout(function(){
+				fs.readFile('/tmp/pip', 'arraybuffer', function(err, file){
+					console.log('pipetest', err, file)
+				})
+			}, 1000)
+		})		
+	}
+})
+
 ```
 
 ## Tests
