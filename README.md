@@ -1,6 +1,6 @@
 # Nota Bene
 
-Some of Node.j's file system APIs implemented in the browser with the File System API. Currently, only asynchronous methods are provided, per the File System API (sync is in the spec but not supported yet). All methods copy Node's FS module. Use with browserify.
+A partial clone of Node.j's fs module (including streams) for the browser File System API. Currently, only asynchronous methods are provided, per the File System API (sync is in the spec but not supported yet). All methods copy Node's FS module. Use with browserify.
 
 __Nota Bene__ uses [through](https://github.com/dominictarr/through) to expose read and write streams.
 
