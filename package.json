@@ -1,6 +1,6 @@
 {
   "name": "nota-bene",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "partial clone of Node's fs module (including streams) for the browser File System API",
   "main": "nota-bene.js",
   "scripts": {
@@ -15,9 +15,9 @@
     "browserify file system",
     "html5 file system api"
   ],
-	"dependencies" : {
-		"through" : ""
-	},
+  "dependencies": {
+    "through": ""
+  },
   "author": "johnnyscript.us",
   "license": "BSD",
   "readmeFilename": "README.md"
