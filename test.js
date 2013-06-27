@@ -1,15 +1,11 @@
 var fs = require('./nota-bene');
 var buf;
 
-fs.readFile('/tempeth3', function(err, deets){
-	console.log('#########', this.results)
-})
-
-fs.writeFile('testbed2', 'a string is the thing', function(err, written, buf){
+fs.writeFile('tempethx', 'a string is the thing', function(err, written, buf){
 	console.log(err, written, buf)
-	fs.readFile('testbed2', 'utf8', function(err, file){
+	fs.readFile('tempethx', 'utf8', function(err, file){
 		console.log(file) // should be "a string is the thing"
-		fs.unlink('testbed2', function(err){
+		fs.unlink('tempethx', function(err){
 			console.log(err) // null
 		})
 	})

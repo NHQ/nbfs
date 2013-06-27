@@ -1,6 +1,6 @@
 {
   "name": "nota-bene",
-  "version": "2.0.0",
+  "version": "2.2.0",
   "description": "partial clone of Node's fs module (including streams) for the browser File System API",
   "main": "nota-bene.js",
   "scripts": {

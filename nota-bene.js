@@ -1,6 +1,12 @@
 var through = require('through');
 var path = require('path');
 
+var FILESYSTEM = null;
+var TYPE = 1;
+var SIZE = 1024 * 1024 * 1024;
+
+getFileSystem(function(){})
+
 var FS = module.exports
 
 FS.createWriteStream = createWriteStream
@@ -394,10 +400,6 @@ function unlink(path, cb){
 		})
 	})
 }
-
-var FILESYSTEM = null;
-var TYPE = 1;
-var SIZE = 1024 * 1024 * 1024;
 
 function setStorage(cb){
 	cb = cb || function(){}
