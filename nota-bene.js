@@ -1,7 +1,8 @@
 var through = require('through');
 var path = require('path');
 
-FS = module.exports
+var FS = module.exports
+
 FS.createWriteStream = createWriteStream
 FS.readdir = readdir
 FS.mkdir = mkdir
