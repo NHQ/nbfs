@@ -15,6 +15,7 @@ FS.unlink = unlink
 FS.rename = rename
 FS.mv = rename
 FS.setStorage = setStorage
+FS.stat = stat
 
 function write(path, buffer, offset, length, pos, cb){
 	switch ('function'){
@@ -90,7 +91,7 @@ function readFile(path, opts, cb){
 		opts = Object.create(null);
 		encoding = 'utf8';
 	}
-	
+	cb = maybeCallback(cb)
 	opts = opts || Object.create(null)
 	
 	getFileSystem(function(err, fs){
@@ -124,7 +125,7 @@ function readFile(path, opts, cb){
 						readType = 'readAsArrayBuffer'
 						break;
 				}
-				reader.onloadend = function(evt){
+				reader.onloadend = function(evt){					
 					cb(null, this.result)
 				}
 				reader[readType](file)
@@ -395,12 +396,12 @@ function unlink(path, cb){
 }
 
 var FILESYSTEM = null;
-var TYPE = window.PERMANENT;
+var TYPE = 1;
 var SIZE = 1024 * 1024 * 1024;
 
 function setStorage(cb){
 	cb = cb || function(){}
-	TYPE = arguments[0] || window.PERMANENT
+	TYPE = arguments[0] || window.PERSISTENT
 	SIZE = arguments[1] || 1024 * 1024 * 1024
 	getFileSystem(cb, true)
 }
@@ -408,14 +409,22 @@ function setStorage(cb){
 function getFileSystem(cb, reload){	
 	if(FILESYSTEM && !(reload)) cb(null, FILESYSTEM);
 	else{
-		var reqFileSystem = window.requestFileSystem || window.webkitRequestFileSystem
-	  if (reqFileSystem){
-	    reqFileSystem(TYPE, SIZE, function(fs){
+		if(window.requestFileSystem){
+			window.reqFileSystem(TYPE, SIZE, function(fs){
 				FILESYSTEM = fs;
 	      cb(null, FILESYSTEM)
 	    }, function(err){cb(err, null)})
-	  }
-
+		}
+		else if(window.webkitRequestFileSystem){
+			window.webkitStorageInfo.requestQuota(TYPE, SIZE, function(grantedBytes) {
+				  window.webkitRequestFileSystem(TYPE, grantedBytes, function(fs){
+						FILESYSTEM = fs;
+			      cb(null, FILESYSTEM)
+				}, function(err) {
+				    cb(err, null)
+				});
+			})
+		}
 		else{
 			cb(new Error('no file system', null))
 		}		

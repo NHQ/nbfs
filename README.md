@@ -22,7 +22,7 @@ There is also a helper method for the File System API.
 
 Call this method before any others if you don't want these defaults:
 ```js
-type = window.PERMANENT // otherwise window.TEMPORARY
+type = window.PERSISTENT // otherwise window.TEMPORARY
 size = 1024 * 1024 * 1024 // in bytes
 ```
 

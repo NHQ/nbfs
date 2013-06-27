@@ -1,9 +1,43 @@
 var fs = require('./nota-bene');
+var buf;
 
-var buf = new Float32Array(1024 * 1024);
-for(var x = 0; x < buf.length; x++){
-	buf[x] = Math.sin((x / 1024 * 1024) * Math.PI * 2)
+fs.readFile('/tempeth3', function(err, deets){
+	console.log('#########', this.results)
+})
+
+fs.writeFile('testbed2', 'a string is the thing', function(err, written, buf){
+	console.log(err, written, buf)
+	fs.readFile('testbed2', 'utf8', function(err, file){
+		console.log(file) // should be "a string is the thing"
+		fs.unlink('testbed2', function(err){
+			console.log(err) // null
+		})
+	})
+})
+
+
+init()
+
+function init(){
+	
+	buf = new Float32Array(1024 * 1024);
+
+	for(var x = 0; x < buf.length; x++){
+		buf[x] = Math.sin((x / 1024 * 1024) * Math.PI * 2)
+	}
+	
 }
+
+var ws = fs.createWriteStream('tempeth3')
+ws.on('error', function(err){console.log(err)})
+ws.on('data', function(data){
+  console.log('write!')			
+})
+for(var y = 0; y < 5; y++){
+	ws.write(new Blob([buf]))
+}
+
+
 fs.mkdir('/tmp', function(err){
 	if(err) console.log(err)
 	else{
@@ -24,15 +58,6 @@ fs.mkdir('/tmp', function(err){
 	}
 })
 
-
-var ws = fs.createWriteStream('tempeth3')
-ws.on('error', function(err){console.log(err)})
-
-for(var y = 0; y < 5; y++){
-	ws.write(new Blob([buf]))
-	console.log('write!')			
-}
-
 fs.write('testbed', 'a string is the thing', 0, 8, null, function(err, written, buf){
 	console.log(err, written, buf)
 	fs.readFile('testbed', 'utf8', function(err, file){
@@ -52,17 +77,6 @@ fs.writeFile('testbed2', 'a string is the thing', function(err, written, buf){
 		})
 	})
 })
-
-
-setTimeout(function(){
-	
-	var rs = fs.createReadStream('tempeth3')
-	rs.on('data', function(data){
-		console.log('read!')
-	})
-
-}, 1000)
-
 
 function errorHandler(err){
 	console.log(err)
