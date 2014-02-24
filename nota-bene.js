@@ -403,8 +403,8 @@ function unlink(path, cb){
 
 function setStorage(cb){
 	cb = cb || function(){}
-	TYPE = arguments[0] || window.PERSISTENT
-	SIZE = arguments[1] || 1024 * 1024 * 1024
+	TYPE = window.PERSISTENT
+	SIZE = arguments[0] || 1024 * 1024 * 1024
 	getFileSystem(cb, true)
 }
 
@@ -418,7 +418,7 @@ function getFileSystem(cb, reload){
 	    }, function(err){cb(err, null)})
 		}
 		else if(window.webkitRequestFileSystem){
-			window.webkitStorageInfo.requestQuota(TYPE, SIZE, function(grantedBytes) {
+			navigator.webkitPersistentStorage.requestQuota(SIZE, function(grantedBytes) {
 				  window.webkitRequestFileSystem(TYPE, grantedBytes, function(fs){
 						FILESYSTEM = fs;
 			      cb(null, FILESYSTEM)

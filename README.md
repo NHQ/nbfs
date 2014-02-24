@@ -18,13 +18,14 @@ __Nota Bene__ uses [through](https://github.com/dominictarr/through) to expose r
 * stat
 
 There is also a helper method for the File System API.
-* setStorage(type, size) 
+* setStorage(size) 
 
 Call this method before any others if you don't want these defaults:
 ```js
-type = window.PERSISTENT // otherwise window.TEMPORARY
 size = 1024 * 1024 * 1024 // in bytes
 ```
+
+The default and standard for this module is persistent storage, to whatever extent the browser grants this.
 
 ## usage
 ```
