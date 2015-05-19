@@ -3,7 +3,7 @@ var path = require('path');
 
 var FILESYSTEM = null;
 var TYPE = 1;
-var SIZE = 1024 * 1024 * 1024;
+var SIZE = 1024 * 1024 * 1024 * 5;
 
 getFileSystem(function(){})
 
@@ -401,10 +401,10 @@ function unlink(path, cb){
 	})
 }
 
-function setStorage(cb){
+function setStorage(s, cb){
 	cb = cb || function(){}
 	TYPE = window.PERSISTENT
-	SIZE = arguments[0] || 1024 * 1024 * 1024
+	SIZE = s || 1024 * 1024 * 1024
 	getFileSystem(cb, true)
 }
 
